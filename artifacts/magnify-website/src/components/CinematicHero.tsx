@@ -395,8 +395,8 @@ export default function CinematicHero() {
         .cinematic-hero-wrap {
           position: relative;
           width: 100%;
-          font-family: 'Instrument Serif', 'Times New Roman', Times, serif;
-          font-weight: 400;
+          font-family: 'Cormorant Garamond', 'Times New Roman', Times, serif;
+          font-weight: 300;
           color: white;
           background: #000;
         }
@@ -420,8 +420,8 @@ export default function CinematicHero() {
         @media (max-width: 768px) {
           .ch-copy-block { max-width: 90vw; }
         }
-        .ch-copy-block h2 { margin: 0; font-size: clamp(2.4rem, 8vw, 8rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.02em; font-style: italic; }
-        .ch-copy-block p { margin: 0.6rem 0 0; font-size: clamp(0.85rem, 1.2vw, 1.1rem); font-weight: 400; opacity: 0.55; font-family: 'Inter', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.32em; }
+        .ch-copy-block h2 { margin: 0; font-size: clamp(2rem, 7vw, 7rem); font-weight: 300; line-height: 0.8; }
+        .ch-copy-block p { margin: 0.4rem 0 0; font-size: clamp(1rem, 2vw, 2rem); font-weight: 300; opacity: 0.5; }
         .ch-quote-cta {
           display: inline-flex;
           align-items: center;
