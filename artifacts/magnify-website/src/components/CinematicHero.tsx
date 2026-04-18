@@ -420,8 +420,8 @@ export default function CinematicHero() {
         @media (max-width: 768px) {
           .ch-copy-block { max-width: 90vw; }
         }
-        .ch-copy-block h2 { margin: 0; font-size: clamp(2rem, 7vw, 7rem); font-weight: 300; line-height: 0.8; }
-        .ch-copy-block p { margin: 0.4rem 0 0; font-size: clamp(1rem, 2vw, 2rem); font-weight: 300; opacity: 0.5; }
+        .ch-copy-block h2 { margin: 0; font-family: 'Cormorant Garamond', 'Times New Roman', Times, serif; font-size: clamp(2rem, 7vw, 7rem); font-weight: 300; line-height: 0.8; color: #fff; }
+        .ch-copy-block p { margin: 0.4rem 0 0; font-family: 'Cormorant Garamond', 'Times New Roman', Times, serif; font-size: clamp(1rem, 2vw, 2rem); font-weight: 300; opacity: 0.5; color: #fff; }
         .ch-quote-cta {
           display: inline-flex;
           align-items: center;
