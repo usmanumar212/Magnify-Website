@@ -84,6 +84,241 @@ function MagneticCursor() {
   );
 }
 
+function PillarsSection() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Smooth color crossfade keyed to scroll position within the section
+  const bg = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.55, 0.85, 1],
+    ["#050505", "#3a3a35", "#ebebe3", "#ebebe3", "#1a1a17"]
+  );
+  const text = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.45, 0.85, 1],
+    ["#ebebe3", "#bdbdb4", "#202020", "#202020", "#bdbdb4"]
+  );
+  const borderColor = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.55, 0.85, 1],
+    ["rgba(235,235,227,0.08)", "rgba(235,235,227,0.18)", "rgba(32,32,32,0.15)", "rgba(32,32,32,0.15)", "rgba(235,235,227,0.1)"]
+  );
+  const eyebrowOpacity = useTransform(scrollYProgress, [0.1, 0.35], [0.4, 0.55]);
+
+  // Subtle parallax on the heading column
+  const headingY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  // Glow accent that grows as section enters
+  const glowScale = useTransform(scrollYProgress, [0.1, 0.6], [0.6, 1.4]);
+  const glowOpacity = useTransform(scrollYProgress, [0.1, 0.4, 0.7, 0.95], [0, 0.5, 0.5, 0]);
+
+  const pillars = [
+    { k: "Futuristic by default", v: "Modern stacks, motion-led interfaces, AI-augmented workflows. We build what comes next, not what worked last year." },
+    { k: "Clean delivery", v: "Tight scopes, transparent timelines, weekly demos. No agency theatre — only signal, only ship." },
+    { k: "Engineering excellence", v: "Type-safe systems. 99/100 Lighthouse. Code that other engineers want to read." },
+    { k: "Design that earns its weight", v: "Editorial typography, considered motion, brand-defining detail. Every pixel justified." },
+    { k: "Owners, not vendors", v: "We treat your product like ours. Long-term partnerships over project-by-project transactions." },
+  ];
+
+  return (
+    <motion.section
+      ref={ref}
+      style={{ backgroundColor: bg, color: text }}
+      className="relative overflow-hidden transition-none"
+    >
+      {/* Soft radial glow accent */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-1/4 left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(235,235,227,0.6) 0%, transparent 60%)",
+          scale: glowScale,
+          opacity: glowOpacity,
+          mixBlendMode: "overlay",
+        }}
+      />
+
+      <div className="container mx-auto max-w-7xl px-6 py-32 md:py-56 relative">
+        <motion.div
+          style={{ opacity: eyebrowOpacity }}
+          className="text-[10px] font-mono tracking-[0.3em] uppercase mb-20"
+        >
+          [ 03 / What sets us apart ]
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <motion.div className="lg:col-span-4" style={{ y: headingY }}>
+            <h2
+              className="text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[1] tracking-tighter lg:sticky lg:top-32"
+              data-testid="about-positioning"
+            >
+              <SplitWords text="Built" />
+              <br />
+              <span
+                className="font-serif italic font-light"
+                style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              >
+                <SplitWords text="for what's" delay={0.2} />
+              </span>
+              <br />
+              <SplitWords text="next." delay={0.4} />
+            </h2>
+          </motion.div>
+
+          <div className="lg:col-span-8 flex flex-col gap-1">
+            {pillars.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.9, ease, delay: i * 0.05 }}
+                whileHover={{ x: 14 }}
+                className="group py-8 md:py-10 cursor-default border-t"
+                style={{ borderTopColor: borderColor }}
+                data-testid={`pillar-${i}`}
+              >
+                <div className="grid grid-cols-12 gap-6 items-baseline">
+                  <div className="col-span-12 md:col-span-4">
+                    <h3 className="text-xl md:text-2xl font-display font-medium tracking-tight">
+                      {item.k}
+                    </h3>
+                  </div>
+                  <div className="col-span-12 md:col-span-7">
+                    <p className="text-base md:text-lg opacity-65 leading-relaxed">
+                      {item.v}
+                    </p>
+                  </div>
+                  <div className="col-span-12 md:col-span-1 text-right text-xs font-mono opacity-30 group-hover:opacity-100 transition-opacity">
+                    →
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function ShowreelSection() {
+  const ref = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Cinematic reveal: scale and unmask the video as section enters
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.88, 1, 1.04]);
+  const radius = useTransform(scrollYProgress, [0, 0.4], ["32px", "8px"]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7, 1], [0.7, 0.15, 0.15, 0.5]);
+  const captionY = useTransform(scrollYProgress, [0.2, 0.6], [40, -20]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-32 md:py-48 px-6 bg-[#050505] overflow-hidden"
+      data-testid="showreel-section"
+    >
+      <div className="container mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-15%" }}
+          transition={{ duration: 1, ease }}
+          className="flex items-end justify-between mb-12 md:mb-16"
+        >
+          <div className="text-[10px] font-mono tracking-[0.3em] text-white/40 uppercase">
+            [ 05 / In motion ]
+          </div>
+          <div className="text-[10px] font-mono tracking-[0.3em] text-white/30 uppercase hidden md:block">
+            ▶ Showreel · 2026
+          </div>
+        </motion.div>
+
+        <motion.div
+          style={{ scale, borderRadius: radius }}
+          className="relative aspect-[16/9] w-full overflow-hidden bg-[#0a0a0a] border border-white/5"
+        >
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/video/showreel-poster.jpg"
+            data-testid="showreel-video"
+          >
+            <source src="/video/showreel.mp4" type="video/mp4" />
+            <source src="/video/showreel.webm" type="video/webm" />
+          </video>
+
+          {/* Cinematic vignette + dimming overlay */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              opacity: overlayOpacity,
+              background:
+                "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)",
+            }}
+          />
+
+          {/* Corner brackets — editorial frame */}
+          <div className="absolute inset-6 pointer-events-none">
+            <div className="absolute top-0 left-0 w-6 h-6 border-t border-l border-white/40" />
+            <div className="absolute top-0 right-0 w-6 h-6 border-t border-r border-white/40" />
+            <div className="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-white/40" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-white/40" />
+          </div>
+
+          {/* HUD label */}
+          <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-2 text-[10px] font-mono tracking-[0.25em] uppercase text-white/70">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            <span>REC · MAGNIFY</span>
+          </div>
+          <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 text-[10px] font-mono tracking-[0.25em] uppercase text-white/60">
+            01:00 / 01:00
+          </div>
+        </motion.div>
+
+        <motion.div
+          style={{ y: captionY }}
+          className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12"
+        >
+          <div className="md:col-span-1 text-[10px] font-mono tracking-[0.3em] text-white/30 uppercase">
+            ◆ 01
+          </div>
+          <h3
+            className="md:col-span-7 text-2xl md:text-4xl font-display font-light leading-snug text-white/85"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            <span className="italic">Selected work</span>, in motion. A glance at how we ship —
+            from first frame to live build.
+          </h3>
+          <div className="md:col-span-4 flex md:justify-end">
+            <Link
+              href="/portfolio"
+              className="group inline-flex items-center gap-3 text-xs font-mono tracking-[0.25em] uppercase text-white/60 hover:text-white transition-colors"
+              data-testid="showreel-cta"
+            >
+              View full portfolio
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function About() {
   const { scrollYProgress } = useScroll();
 
@@ -309,92 +544,8 @@ export default function About() {
           </div>
         </section>
 
-        {/* 4. WHAT WE STAND FOR — sticky scroll panels */}
-        <section className="relative bg-[#ebebe3] text-[#202020]">
-          <div className="container mx-auto max-w-7xl px-6 py-32 md:py-48">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-15%" }}
-              transition={{ duration: 1, ease }}
-              className="text-[10px] font-mono tracking-[0.3em] text-[#202020]/50 uppercase mb-20"
-            >
-              [ 03 / What sets us apart ]
-            </motion.div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-4">
-                <h2
-                  className="text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[1] tracking-tighter lg:sticky lg:top-32"
-                  data-testid="about-positioning"
-                >
-                  <SplitWords text="Built" />
-                  <br />
-                  <span
-                    className="font-serif italic font-light"
-                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                  >
-                    <SplitWords text="for what's" delay={0.2} />
-                  </span>
-                  <br />
-                  <SplitWords text="next." delay={0.4} />
-                </h2>
-              </div>
-
-              <div className="lg:col-span-8 flex flex-col gap-1">
-                {[
-                  {
-                    k: "Futuristic by default",
-                    v: "Modern stacks, motion-led interfaces, AI-augmented workflows. We build what comes next, not what worked last year.",
-                  },
-                  {
-                    k: "Clean delivery",
-                    v: "Tight scopes, transparent timelines, weekly demos. No agency theatre — only signal, only ship.",
-                  },
-                  {
-                    k: "Engineering excellence",
-                    v: "Type-safe systems. 99/100 Lighthouse. Code that other engineers want to read.",
-                  },
-                  {
-                    k: "Design that earns its weight",
-                    v: "Editorial typography, considered motion, brand-defining detail. Every pixel justified.",
-                  },
-                  {
-                    k: "Owners, not vendors",
-                    v: "We treat your product like ours. Long-term partnerships over project-by-project transactions.",
-                  },
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-10%" }}
-                    transition={{ duration: 0.9, ease, delay: i * 0.05 }}
-                    whileHover={{ x: 12 }}
-                    className="group border-t border-[#202020]/15 py-8 md:py-10 cursor-default"
-                    data-testid={`pillar-${i}`}
-                  >
-                    <div className="grid grid-cols-12 gap-6 items-baseline">
-                      <div className="col-span-12 md:col-span-4">
-                        <h3 className="text-xl md:text-2xl font-display font-medium tracking-tight">
-                          {item.k}
-                        </h3>
-                      </div>
-                      <div className="col-span-12 md:col-span-7">
-                        <p className="text-base md:text-lg text-[#202020]/65 leading-relaxed">
-                          {item.v}
-                        </p>
-                      </div>
-                      <div className="col-span-12 md:col-span-1 text-right text-xs font-mono opacity-30 group-hover:opacity-100 transition-opacity">
-                        →
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* 4. WHAT WE STAND FOR — scroll-morphing background */}
+        <PillarsSection />
 
         {/* 5. PROCESS — horizontal sequence */}
         <section className="relative py-32 md:py-48 px-6 bg-[#050505] overflow-hidden">
@@ -456,6 +607,9 @@ export default function About() {
             </div>
           </div>
         </section>
+
+        {/* 5.5 SHOWREEL VIDEO */}
+        <ShowreelSection />
 
         {/* 6. CAPABILITIES MARQUEE */}
         <section className="py-10 md:py-14 overflow-hidden bg-black border-y border-white/10">
