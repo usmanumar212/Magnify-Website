@@ -1,0 +1,87 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  font-family: 'Cormorant Garamond', 'Times New Roman', Times, serif;
+  font-weight: 300;
+}
+
+.ux-shell {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+}
+
+.ux-canvas-layer,
+.ux-text-layer {
+  position: fixed;
+  inset: 0;
+}
+
+.ux-canvas-layer {
+  z-index: 1;
+}
+
+.ux-canvas-layer canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ux-text-layer {
+  z-index: 6;
+  pointer-events: none;
+}
+
+.ux-copy-block {
+  position: absolute;
+  opacity: 0;
+  text-align: center;
+  max-width: 70vw;
+}
+
+.ux-copy-block h2 {
+  margin: 0;
+}
+
+.ux-copy-block p {
+  margin: 0.4rem 0 0;
+}
+
+.ux-top {
+  top: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ux-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ux-bottom {
+  bottom: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ux-scroll-guard {
+  position: relative;
+  z-index: 4;
+}
+
+@media (max-width: 768px) {
+  .ux-copy-block {
+    max-width: 90vw;
+  }
+}

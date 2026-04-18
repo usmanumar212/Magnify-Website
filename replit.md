@@ -25,3 +25,14 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
 
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+
+## Artifacts
+
+### `magnify-website` (React + Vite)
+Multi-page studio site for Magnify (Birmingham, UK & Abuja, Nigeria).
+- Routes: `/` (cinematic hero + footer only), `/about`, `/services`, `/portfolio`, `/contact`
+- Cinematic homepage hero in `src/components/CinematicHero.tsx` — GSAP + OGL (WebGL) panorama cylinder using 12 monochromatic images at `public/hero/img1.png`–`img12.png`. Includes a static-image CSS fallback when WebGL is unavailable.
+- Shared `Header` and `Footer` components in `src/components/`.
+- Contact form is visual-only (toast confirmation, no backend). Uses react-hook-form + zod.
+- Theme: monochrome only — black, white, `#202020`, `#ebebe3`. Fonts: Space Grotesk (display), Inter (body), Cormorant Garamond (cinematic hero overlay).
+- Restart workflow: `artifacts/magnify-website: web`

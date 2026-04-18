@@ -1,0 +1,74 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "CQl9HjcFEWalCjhF0so-_"
+uri = "file://artifacts/magnify-website/public/hero/img1.png"
+type = "image"
+title = "brutalist concrete architecture B&W"
+
+[[generated]]
+id = "FWZewmOZBeeJaRyHxqjoI"
+uri = "file://artifacts/magnify-website/public/hero/img2.png"
+type = "image"
+title = "minimal desert landscape B&W"
+
+[[generated]]
+id = "LNjg8H3_Aqq1FXwJunXHF"
+uri = "file://artifacts/magnify-website/public/hero/img3.png"
+type = "image"
+title = "monolithic interior B&W"
+
+[[generated]]
+id = "Cd3guDlTIbrydh17X5TTV"
+uri = "file://artifacts/magnify-website/public/hero/img4.png"
+type = "image"
+title = "industrial steel textures B&W"
+
+[[generated]]
+id = "OJUBxRgzqXbRHMMOWBNwb"
+uri = "file://artifacts/magnify-website/public/hero/img5.png"
+type = "image"
+title = "minimal sculptural shapes B&W"
+
+[[generated]]
+id = "zbwrElaclXl1IvhK8qWLz"
+uri = "file://artifacts/magnify-website/public/hero/img6.png"
+type = "image"
+title = "architectural facade B&W"
+
+[[generated]]
+id = "pXiNRDpC-jDl8K5wXVPox"
+uri = "file://artifacts/magnify-website/public/hero/img7.png"
+type = "image"
+title = "mountain range B&W"
+
+[[generated]]
+id = "5StzPoQc7IXoFNEszsCep"
+uri = "file://artifacts/magnify-website/public/hero/img8.png"
+type = "image"
+title = "brutalist staircase B&W"
+
+[[generated]]
+id = "OT0zjsCd1Oe4PTShfOdT_"
+uri = "file://artifacts/magnify-website/public/hero/img9.png"
+type = "image"
+title = "geometric light shadow B&W"
+
+[[generated]]
+id = "n80owXQAN5e3cDxdq0dy9"
+uri = "file://artifacts/magnify-website/public/hero/img10.png"
+type = "image"
+title = "modernist structure B&W"
+
+[[generated]]
+id = "twqCpEffHP6T294oQ5E5Q"
+uri = "file://artifacts/magnify-website/public/hero/img11.png"
+type = "image"
+title = "Cinematic brutalist B&W architecture"
+
+[[generated]]
+id = "U6RxeFLBDJ6eVnxRsqVC-"
+uri = "file://artifacts/magnify-website/public/hero/img12.png"
+type = "image"
+title = "Cinematic brutalist B&W sculpture"
