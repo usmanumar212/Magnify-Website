@@ -571,7 +571,7 @@ function EngagementsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15%" }}
           transition={{ duration: 1.2, ease }}
-          className="text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[1] tracking-tighter mb-20 max-w-3xl"
+          className="text-4xl md:text-6xl lg:text-7xl font-display font-medium leading-[1] tracking-tighter mb-10 md:mb-12 max-w-3xl"
         >
           <SplitWords text="Three ways" />
           <br />
@@ -673,7 +673,7 @@ function StackMarquee() {
 
 function CTASection() {
   return (
-    <section className="relative py-40 md:py-64 px-6 bg-black flex flex-col items-center text-center overflow-hidden">
+    <section className="relative py-24 md:py-36 px-6 bg-black flex flex-col items-center text-center overflow-hidden">
       <motion.div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.06]"

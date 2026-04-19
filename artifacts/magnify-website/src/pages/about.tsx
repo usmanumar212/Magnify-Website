@@ -458,7 +458,7 @@ export default function About() {
         </section>
 
         {/* 2. MANIFESTO — bold positioning */}
-        <section className="relative py-40 md:py-56 px-6 bg-[#0a0a0a]">
+        <section className="relative py-24 md:py-32 px-6 bg-[#0a0a0a]">
           <div className="container mx-auto max-w-7xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
               <div className="lg:col-span-3">
@@ -635,7 +635,7 @@ export default function About() {
         </section>
 
         {/* 7. WHERE WE ARE — quiet footer note, not a selling point */}
-        <section className="py-24 md:py-32 px-6 bg-black border-b border-white/5">
+        <section className="py-16 md:py-20 px-6 bg-black border-b border-white/5">
           <div className="container mx-auto max-w-7xl flex flex-col md:flex-row md:items-end md:justify-between gap-10">
             <div>
               <motion.div
@@ -671,7 +671,7 @@ export default function About() {
         </section>
 
         {/* 8. CTA */}
-        <section className="relative py-40 md:py-64 px-6 bg-black flex flex-col items-center text-center overflow-hidden">
+        <section className="relative py-24 md:py-36 px-6 bg-black flex flex-col items-center text-center overflow-hidden">
           <motion.div
             aria-hidden="true"
             className="absolute inset-0 opacity-[0.06]"
