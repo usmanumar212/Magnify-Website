@@ -527,7 +527,7 @@ function StackSection({ project }: { project: Project }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-15%" }}
                 transition={{ duration: 0.5, ease, delay: i * 0.04 }}
-                className="px-4 py-2 border border-white/10 text-sm font-mono tracking-wide text-white/70 hover:bg-white/5 hover:text-white transition-colors cursor-default rounded-full"
+                className="inline-flex items-center justify-center px-5 py-2.5 border border-white/15 text-sm leading-none font-mono tracking-wide text-white/70 hover:bg-white/5 hover:text-white transition-colors cursor-default rounded-full whitespace-nowrap"
                 data-testid={`stack-${i}`}
               >
                 {tech}
