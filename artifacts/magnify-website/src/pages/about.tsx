@@ -473,19 +473,20 @@ export default function About() {
                 </motion.div>
               </div>
               <div className="lg:col-span-9">
-                <h2
-                  className="text-3xl md:text-5xl lg:text-6xl font-display font-light leading-[1.15] tracking-tight text-white/90"
+                <motion.h2
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-15%" }}
+                  transition={{ duration: 1, ease }}
+                  className="text-3xl md:text-5xl lg:text-6xl font-display font-light leading-[1.15] tracking-tight text-[#ebebe3]"
                   data-testid="about-manifesto"
                 >
-                  <SplitWords text="Magnify is a forward-built engineering and design practice." />
+                  Magnify is a forward-built engineering and design practice.
                   <br />
                   <span className="text-white/40">
-                    <SplitWords
-                      text="We don't decorate software — we build the systems that move companies forward."
-                      delay={0.4}
-                    />
+                    We don't decorate software — we build the systems that move companies forward.
                   </span>
-                </h2>
+                </motion.h2>
 
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
