@@ -687,19 +687,23 @@ function CTASection() {
         transition={{ duration: 2, ease }}
       />
       <div className="container mx-auto max-w-5xl relative">
-        <h2
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-15%" }}
+          transition={{ duration: 1, ease }}
           className="text-5xl md:text-7xl lg:text-[8.5rem] font-display font-medium leading-[0.9] tracking-tighter mb-8 md:mb-10 text-[#ebebe3]"
           data-testid="services-outro-heading"
         >
-          <SplitWords text="Have a brief?" />
+          Have a brief?
           <br />
           <span
-            className="font-serif italic font-light"
+            className="font-serif italic font-light text-[#ebebe3]"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            <SplitWords text="Let's talk." delay={0.3} />
+            Let's talk.
           </span>
-        </h2>
+        </motion.h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
