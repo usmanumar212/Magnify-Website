@@ -20,7 +20,7 @@ export function SplitWords({
   const words = text.split(" ");
   const animProps = immediate
     ? { animate: { y: "0%" } }
-    : { whileInView: { y: "0%" }, viewport: { once: true, margin: "-15%" } as const };
+    : { whileInView: { y: "0%" }, viewport: { once: true, amount: 0.1 } as const };
   return (
     <span className={className} data-testid={testId}>
       {words.map((w, i) => (

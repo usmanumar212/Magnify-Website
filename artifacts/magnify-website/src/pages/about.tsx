@@ -20,7 +20,7 @@ function SplitWords({ text, className, delay = 0, testId, immediate = false }: {
   const words = text.split(" ");
   const animProps = immediate
     ? { animate: { y: "0%" } }
-    : { whileInView: { y: "0%" }, viewport: { once: true, margin: "-15%" } as const };
+    : { whileInView: { y: "0%" }, viewport: { once: true, amount: 0.1 } as const };
   return (
     <span className={className} data-testid={testId}>
       {words.map((w, i) => (
@@ -686,19 +686,23 @@ export default function About() {
             transition={{ duration: 2, ease }}
           />
           <div className="container mx-auto max-w-5xl relative">
-            <h2
-              className="text-5xl md:text-7xl lg:text-[8.5rem] font-display font-medium leading-[0.9] tracking-tighter mb-16"
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 1, ease }}
+              className="text-5xl md:text-7xl lg:text-[8.5rem] font-display font-medium leading-[0.9] tracking-tighter mb-8 md:mb-10 text-[#ebebe3]"
               data-testid="about-outro-heading"
             >
-              <SplitWords text="Let's build" />
+              Let's build
               <br />
               <span
-                className="font-serif italic font-light"
+                className="font-serif italic font-light text-[#ebebe3]"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
-                <SplitWords text="something with weight." delay={0.3} />
+                something with weight.
               </span>
-            </h2>
+            </motion.h2>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
