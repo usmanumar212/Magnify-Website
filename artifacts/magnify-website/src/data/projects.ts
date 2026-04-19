@@ -17,6 +17,8 @@ export type Project = {
   outcomes: { metric: string; label: string }[];
   stack: string[];
   link?: { label: string; href: string };
+  video?: { src: string; poster?: string };
+  liveUrl?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -45,6 +47,7 @@ export const PROJECTS: Project[] = [
       { metric: "18 mo", label: "In production" },
     ],
     stack: ["Liquid", "TypeScript", "React", "Vite", "Cloudflare Workers", "Shopify Hydrogen"],
+    liveUrl: "https://apps.shopify.com/section-pro",
     link: { label: "Visit Section Pro on the Shopify App Store", href: "https://apps.shopify.com/section-pro" },
   },
   {

@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Link, useRoute } from "wouter";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, PlayCircle, Globe } from "lucide-react";
 import {
   ease,
   SplitWords,
@@ -57,6 +57,10 @@ export default function PortfolioDetail() {
         </DetailSection>
 
         <DetailVisual project={project} />
+
+        {project.video && <VideoSection project={project} />}
+
+        {project.liveUrl && <LiveLinkSection url={project.liveUrl} />}
 
         <DetailSection eyebrow="02 / The challenge" title="What we set out to solve">
           <p className="text-lg md:text-xl text-white/65 leading-relaxed max-w-3xl">
@@ -277,6 +281,122 @@ function DetailVisual({ project }: { project: Project }) {
             ◆ {project.slug}
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function VideoSection({ project }: { project: Project }) {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.94, 1, 1.02]);
+  const radius = useTransform(scrollYProgress, [0, 0.4], ["28px", "8px"]);
+
+  if (!project.video) return null;
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-16 md:py-24 px-6 overflow-hidden bg-black"
+      data-testid="project-video"
+    >
+      <div className="container mx-auto max-w-7xl">
+        <div className="flex items-end justify-between mb-8 md:mb-10">
+          <div>
+            <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40 mb-3">
+              [ Reel ]
+            </div>
+            <h3
+              className="text-3xl md:text-5xl font-display font-medium tracking-tighter text-white/90"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              The film
+            </h3>
+          </div>
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono tracking-[0.3em] uppercase text-white/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/50 animate-pulse" />
+            REC · {project.year}
+          </div>
+        </div>
+
+        <motion.div
+          style={{ scale, borderRadius: radius }}
+          className="relative aspect-video w-full overflow-hidden bg-[#0a0a0a] border border-white/5"
+        >
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={project.video.src}
+            poster={project.video.poster}
+            controls
+            playsInline
+            preload="metadata"
+            data-testid="video-player"
+          />
+          {/* Editorial corner brackets */}
+          <div className="absolute inset-4 pointer-events-none">
+            <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-white/40" />
+            <div className="absolute top-0 right-0 w-5 h-5 border-t border-r border-white/40" />
+            <div className="absolute bottom-0 left-0 w-5 h-5 border-b border-l border-white/40" />
+            <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-white/40" />
+          </div>
+          <div className="absolute top-3 left-4 flex items-center gap-2 text-[10px] font-mono tracking-[0.25em] uppercase text-white/60 pointer-events-none">
+            <PlayCircle className="w-3 h-3" />
+            {project.slug}.mp4
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function LiveLinkSection({ url }: { url: string }) {
+  let host = url;
+  try {
+    host = new URL(url).host.replace(/^www\./, "");
+  } catch {
+    /* keep raw url as host */
+  }
+
+  return (
+    <section
+      className="relative py-12 md:py-16 px-6 bg-black border-t border-white/10"
+      data-testid="project-live-link"
+    >
+      <div className="container mx-auto max-w-7xl">
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10 py-8 md:py-10 border-y border-white/10 hover:border-white/30 transition-colors"
+          data-testid="live-link-anchor"
+        >
+          <div className="flex items-start md:items-center gap-5 md:gap-7">
+            <div className="hidden md:flex w-14 h-14 rounded-full border border-white/15 items-center justify-center group-hover:border-white/40 group-hover:bg-white/5 transition-colors">
+              <Globe className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            </div>
+            <div>
+              <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40 mb-2">
+                [ Live ]
+              </div>
+              <div
+                className="text-2xl md:text-4xl font-display font-light text-white/90 group-hover:text-white transition-colors"
+                style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              >
+                <span className="italic">Visit the live project</span>
+              </div>
+              <div className="text-xs md:text-sm font-mono text-white/40 mt-2 truncate max-w-[60vw]">
+                {host}
+              </div>
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-3 px-6 py-3 border border-white/30 text-xs font-mono tracking-[0.25em] uppercase text-white/80 group-hover:bg-white group-hover:text-black transition-colors self-start md:self-auto">
+            Open
+            <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </div>
+        </a>
       </div>
     </section>
   );
