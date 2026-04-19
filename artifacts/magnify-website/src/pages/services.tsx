@@ -688,7 +688,7 @@ function CTASection() {
       />
       <div className="container mx-auto max-w-5xl relative">
         <h2
-          className="text-5xl md:text-7xl lg:text-[8.5rem] font-display font-medium leading-[0.9] tracking-tighter mb-16"
+          className="text-5xl md:text-7xl lg:text-[8.5rem] font-display font-medium leading-[0.9] tracking-tighter mb-8 md:mb-10"
           data-testid="services-outro-heading"
         >
           <SplitWords text="Have a brief?" />
