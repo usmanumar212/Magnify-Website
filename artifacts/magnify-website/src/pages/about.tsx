@@ -303,16 +303,7 @@ function ShowreelSection() {
             <span className="italic">Selected work</span>, in motion. A glance at how we ship —
             from first frame to live build.
           </h3>
-          <div className="md:col-span-4 flex md:justify-end">
-            <Link
-              href="/portfolio"
-              className="group inline-flex items-center gap-3 text-xs font-mono tracking-[0.25em] uppercase text-white/60 hover:text-white transition-colors"
-              data-testid="showreel-cta"
-            >
-              View full portfolio
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </Link>
-          </div>
+          <div className="md:col-span-4" />
         </motion.div>
       </div>
     </section>
