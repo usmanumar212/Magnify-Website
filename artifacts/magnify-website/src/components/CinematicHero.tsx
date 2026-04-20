@@ -48,10 +48,12 @@ function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: numb
 
 function setupFallbackScroll(scrollGuard: HTMLElement, copyHost: HTMLElement) {
   const triggers: ScrollTrigger[] = [];
+  const total = copyHost.children.length;
   [...copyHost.children].forEach((el, index) => {
     const sectionSize = 100 / panoramaText.length;
     const start = index * sectionSize;
-    const end = (index + 1) * sectionSize;
+    const isLast = index === total - 1;
+    const end = isLast ? 100 : (index + 1) * sectionSize;
     const tl = gsap
       .timeline({
         scrollTrigger: {
@@ -62,8 +64,8 @@ function setupFallbackScroll(scrollGuard: HTMLElement, copyHost: HTMLElement) {
         },
       })
       .fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" })
-      .to(el, { opacity: 1, duration: 0.6, ease: "none" })
-      .to(el, { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" });
+      .to(el, { opacity: 1, duration: isLast ? 0.8 : 0.6, ease: "none" });
+    if (!isLast) tl.to(el, { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" });
     if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
   });
   return () => {
@@ -312,10 +314,12 @@ export default function CinematicHero() {
 
         timeline.to(cylinder.rotation, { y: "+=28.27", duration: 8.5, ease: "none" }, 0);
 
+        const totalCopy = copyHost.children.length;
         [...copyHost.children].forEach((el, index) => {
           const sectionSize = 100 / panoramaText.length;
           const start = index * sectionSize;
-          const end = (index + 1) * sectionSize;
+          const isLast = index === totalCopy - 1;
+          const end = isLast ? 100 : (index + 1) * sectionSize;
           const tl = gsap
             .timeline({
               scrollTrigger: {
@@ -326,8 +330,8 @@ export default function CinematicHero() {
               },
             })
             .fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "chSmooth" })
-            .to(el, { opacity: 1, duration: 0.6, ease: "none" })
-            .to(el, { opacity: 0, duration: 0.2, ease: "chSmooth" });
+            .to(el, { opacity: 1, duration: isLast ? 0.8 : 0.6, ease: "none" });
+          if (!isLast) tl.to(el, { opacity: 0, duration: 0.2, ease: "chSmooth" });
           if (tl.scrollTrigger) localTriggers.push(tl.scrollTrigger);
         });
 

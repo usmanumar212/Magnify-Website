@@ -43,9 +43,22 @@ export default function Footer() {
       <footer className="py-8 px-6 bg-black border-t border-white/10 text-white/50 flex flex-col md:flex-row justify-between items-center text-sm font-mono gap-4">
         <div data-testid="footer-copyright">&copy; {new Date().getFullYear()} Magnify Studio.</div>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-white transition-colors" data-testid="footer-social-twitter">Twitter</a>
-          <a href="#" className="hover:text-white transition-colors" data-testid="footer-social-linkedin">LinkedIn</a>
-          <a href="#" className="hover:text-white transition-colors" data-testid="footer-social-github">GitHub</a>
+          <a
+            href="https://instagram.com/magnify.studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors"
+            data-testid="footer-social-instagram"
+          >
+            Instagram
+          </a>
+          <a
+            href="mailto:hello@magnify.studio"
+            className="hover:text-white transition-colors"
+            data-testid="footer-social-email"
+          >
+            Email
+          </a>
         </div>
         <div data-testid="footer-closing">Discipline in design.</div>
       </footer>

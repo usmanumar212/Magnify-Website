@@ -22,11 +22,32 @@ const contactSchema = z.object({
   email: z.string().email("Invalid email address"),
   company: z.string().optional(),
   type: z.string({ required_error: "Please select a project type" }),
+  location: z.enum(["UK", "NG"], { required_error: "Please select your location" }),
   budget: z.string({ required_error: "Please select a budget range" }),
   message: z.string().min(10, "Message is required"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
+
+const budgetOptions: Record<"UK" | "NG", { value: string; label: string }[]> = {
+  UK: [
+    { value: "uk-under-1k", label: "Under £1,000" },
+    { value: "uk-1k-5k", label: "£1,000 – £5,000" },
+    { value: "uk-5k-10k", label: "£5,000 – £10,000" },
+    { value: "uk-10k-20k", label: "£10,000 – £20,000" },
+    { value: "uk-20k-plus", label: "£20,000+" },
+    { value: "uk-unsure", label: "Not sure" },
+  ],
+  NG: [
+    { value: "ng-under-500k", label: "Under ₦500,000" },
+    { value: "ng-500k-2m", label: "₦500,000 – ₦2,000,000" },
+    { value: "ng-2m-5m", label: "₦2,000,000 – ₦5,000,000" },
+    { value: "ng-5m-10m", label: "₦5,000,000 – ₦10,000,000" },
+    { value: "ng-10m-20m", label: "₦10,000,000 – ₦20,000,000" },
+    { value: "ng-20m-plus", label: "₦20,000,000+" },
+    { value: "ng-unsure", label: "Not sure" },
+  ],
+};
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -43,9 +64,13 @@ export default function Contact() {
       name: "",
       email: "",
       company: "",
+      location: "UK",
       message: "",
     },
   });
+
+  const selectedLocation = (form.watch("location") as "UK" | "NG" | undefined) ?? "UK";
+  const currentBudgetOptions = budgetOptions[selectedLocation];
 
   function onSubmit(data: ContactFormValues) {
     console.log("Form data:", data);
@@ -126,6 +151,37 @@ export default function Contact() {
                     )}
                   />
 
+                  <FormField
+                    control={form.control}
+                    name="location"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white/70 font-mono text-xs uppercase tracking-widest">Location</FormLabel>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            form.setValue("budget", "", { shouldValidate: false });
+                          }}
+                          value={field.value ?? "UK"}
+                        >
+                          <FormControl>
+                            <SelectTrigger
+                              className="bg-transparent border-t-0 border-x-0 border-b border-white/20 rounded-none px-0 focus:ring-0 focus:border-white h-12 text-lg text-white"
+                              data-testid="contact-location-trigger"
+                            >
+                              <SelectValue placeholder="Select location" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-[#111] border-white/10 text-white">
+                            <SelectItem value="UK">United Kingdom (£)</SelectItem>
+                            <SelectItem value="NG">Nigeria (₦)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage className="text-red-400 font-mono text-xs" />
+                      </FormItem>
+                    )}
+                  />
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                     <FormField
                       control={form.control}
@@ -164,11 +220,11 @@ export default function Contact() {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="bg-[#111] border-white/10 text-white">
-                              <SelectItem value="under10k">Under £10k</SelectItem>
-                              <SelectItem value="10k-25k">£10k–£25k</SelectItem>
-                              <SelectItem value="25k-50k">£25k–£50k</SelectItem>
-                              <SelectItem value="50k+">£50k+</SelectItem>
-                              <SelectItem value="unsure">Not sure</SelectItem>
+                              {currentBudgetOptions.map((opt) => (
+                                <SelectItem key={opt.value} value={opt.value}>
+                                  {opt.label}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <FormMessage className="text-red-400 font-mono text-xs" />
