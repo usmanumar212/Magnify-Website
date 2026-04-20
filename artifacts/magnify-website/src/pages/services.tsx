@@ -414,20 +414,38 @@ function SectionProSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-15%" }}
               transition={{ duration: 1, ease, delay: 0.3 }}
-              className="grid grid-cols-3 gap-6 md:gap-12 mt-4"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 mt-4"
             >
               {[
-                { n: 1200, suffix: "+", l: "Active stores" },
-                { n: 4, suffix: ".9★", l: "Shopify rating" },
-                { n: 18, suffix: " mo", l: "In production" },
-              ].map((s, i) => (
-                <div key={i}>
-                  <div className="text-3xl md:text-5xl font-display font-medium tracking-tight">
-                    <CountUp to={s.n} suffix={s.suffix} duration={2.2} />
+                {
+                  tag: "Specialty",
+                  title: "Sectional layouts",
+                  desc: "Drag-and-drop sections built like editorial design systems — typographic, composable, opinionated.",
+                },
+                {
+                  tag: "Built for",
+                  title: "Editorial merchants",
+                  desc: "For brands that want their storefront to feel like a magazine, not a template.",
+                },
+                {
+                  tag: "Discipline",
+                  title: "No-code, full control",
+                  desc: "Merchants ship pixel-precise pages without touching Liquid. Devs keep the system clean.",
+                },
+              ].map((p, i) => (
+                <div key={i} className="border-t border-white/15 pt-5">
+                  <div className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-50">
+                    {p.tag}
                   </div>
-                  <div className="text-[10px] font-mono tracking-[0.25em] uppercase opacity-50 mt-2">
-                    {s.l}
+                  <div
+                    className="text-2xl md:text-3xl font-display font-light leading-tight mt-3"
+                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                  >
+                    {p.title}
                   </div>
+                  <p className="text-sm md:text-base opacity-70 leading-relaxed mt-3">
+                    {p.desc}
+                  </p>
                 </div>
               ))}
             </motion.div>
