@@ -41,6 +41,7 @@ jobs:
           PORT: "8080"
           BASE_PATH: "/Magnify-Website/"
           NODE_ENV: production
+          VITE_DEPLOY_TARGET: github
         run: pnpm run build
 
       - name: Setup Pages
