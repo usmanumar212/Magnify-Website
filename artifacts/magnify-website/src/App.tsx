@@ -11,10 +11,12 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
+const isGithubDeploy = import.meta.env.VITE_DEPLOY_TARGET === "github";
+
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={isGithubDeploy ? About : Home} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
       <Route path="/contact" component={Contact} />
